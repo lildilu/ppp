@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mon webportrait — David Di Lucchio</title><link rel="stylesheet" href="style.css"></head>
+<body><header><p class="small-title">PPP · BUT INFORMATIQUE · SEMESTRE 1</p><h1>Mon webportrait</h1><p class="subtitle">Bonjour, je m'appelle David Di Lucchio.</p></header>
+<main>
+<section><h2>Bienvenue sur mon portrait interactif</h2><p>Cette page est un point de départ pour découvrir ma personnalité, mes centres d'intérêt et ma manière de voir mon parcours. Chaque lien mène vers une page consacrée à un aspect de moi.</p><p>Je suis quelqu'un de curieux qui aime comprendre comment les choses fonctionnent, résoudre des problèmes et créer des projets, notamment en informatique.</p></section>
+<section><h2>Explorer mon portrait</h2><ul class="link-list">
+<li><a href="pages/qualites-defauts.html">Mes qualités et mes défauts</a> <span>— mes points forts et ce que je veux améliorer.</span></li>
+<li><a href="pages/loisirs.html">Mes loisirs et mes passions</a> <span>— informatique, piano, natation et culture.</span></li>
+<li><a href="pages/intelligences.html">Mes intelligences</a> <span>— les formes d’intelligence dans lesquelles je me reconnais.</span></li>
+<li><a href="pages/parcours.html">Mon parcours et mes expériences</a> <span>— ce que j’ai appris de mes projets.</span></li>
+<li><a href="pages/devise.html">Ma devise</a> <span>— une phrase qui résume ma façon de voir les choses.</span></li>
+</ul></section>
+<section><h2>Une petite interaction</h2><p>Le piano a occupé une place importante dans ma vie pendant plusieurs années. Clique sur le bouton pour écouter une courte suite de notes générée par le navigateur.</p><button id="playNotes" type="button">♪ Écouter quelques notes</button><p id="audioStatus" class="small-note" aria-live="polite">Aucun fichier audio externe n’est nécessaire.</p></section>
+<section><h2>À propos de ce site</h2><p>Ce webportrait a été réalisé en HTML et CSS. J’ai choisi une présentation volontairement simple : l’objectif est de pouvoir naviguer entre plusieurs pages et de découvrir progressivement les différents aspects de mon portrait.</p></section>
+</main><footer><p>David Di Lucchio · Webportrait PPP</p><a href="#top">Retour en haut ↑</a></footer>
+<script>
+const button=document.getElementById('playNotes'),status=document.getElementById('audioStatus');
+button.addEventListener('click',async()=>{const AC=window.AudioContext||window.webkitAudioContext;if(!AC){status.textContent="La lecture audio n’est pas prise en charge par ce navigateur.";return;}const ctx=new AC();if(ctx.state==='suspended')await ctx.resume();const notes=[261.63,329.63,392,329.63,293.66,349.23],start=ctx.currentTime+.05;notes.forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,start+i*.28);g.gain.exponentialRampToValueAtTime(.09,start+i*.28+.03);g.gain.exponentialRampToValueAtTime(.0001,start+i*.28+.24);o.connect(g);g.connect(ctx.destination);o.start(start+i*.28);o.stop(start+i*.28+.25);});status.textContent="La petite séquence est en cours de lecture.";setTimeout(()=>{status.textContent="Séquence terminée.";ctx.close();},2100);});
+</script></body></html>
